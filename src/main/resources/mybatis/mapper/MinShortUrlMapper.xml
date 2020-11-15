@@ -12,7 +12,7 @@
     </update>
 
     <select id="getOriginUrl" resultType="cn.xbmchina.shorturl.entity.MinShortUrl">
-           select id,url from min_short_url where short_url= #{shortUrl}
+           select id,url from min_short_url where short_url= #{shortUrl} order by id desc limit 1
     </select>
 
     <update id="batchUpdateClick" parameterType="java.util.List">

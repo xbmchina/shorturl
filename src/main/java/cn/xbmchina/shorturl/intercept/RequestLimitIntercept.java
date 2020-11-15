@@ -60,7 +60,7 @@ public class RequestLimitIntercept extends HandlerInterceptorAdapter {
         String limitKey = request.getServletPath()+request.getSession().getId();
         // 从缓存中获取，当前这个请求访问了几次
         Integer redisCount = (Integer) redisTemplate.opsForValue().get(limitKey);
-        System.out.println("limitKey="+limitKey+"|redisCount="+redisCount+"|requestLimit="+requestLimit.maxCount()+"|"+requestLimit.second());
+        log.info("limitKey="+limitKey+"|redisCount="+redisCount+"|requestLimit="+requestLimit.maxCount()+"|"+requestLimit.second());
         if(redisCount == null){
             //初始 次数
             redisTemplate.opsForValue().set(limitKey,1,requestLimit.second(), TimeUnit.SECONDS);
