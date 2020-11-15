@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xbmchina.shorturl.mapper.ShortUrlMapper">
+    <insert id="insertUrl" parameterType="cn.xbmchina.shorturl.entity.ShortUrl">
+           INSERT INTO short_url(id, username, url, short_url, client_count, create_time, last_click_time)
+           VALUES (#{id}, #{username}, #{url}, #{shortUrl}, #{clientCount}, #{createTime}, #{lastClickTime})
+    </insert>
+
+    <insert id="batchInsertUrl" parameterType="cn.xbmchina.shorturl.entity.ShortUrl">
+        INSERT INTO short_url(id, username, url, short_url, client_count, create_time, last_click_time)
+        VALUES
+        <foreach collection="shortUrlList" item="item" index="index" separator=",">
+            (#{item.id}, #{item.username}, #{item.url}, #{item.shortUrl}, #{item.clientCount}, #{item.createTime},
+            #{item.lastClickTime})
+        </foreach>
+    </insert>
+
+    <update id="updateShortUrl" parameterType="cn.xbmchina.shorturl.entity.ShortUrl">
+           update short_url set client_count= client_count+1,last_click_time=now() where id = #{id}
+    </update>
+
+    <select id="getOriginUrl" resultType="cn.xbmchina.shorturl.entity.ShortUrl">
+            select id,url from short_url where short_url= #{shortUrl}
+    </select>
+
+    <update id="batchUpdateClick" parameterType="java.util.List">
+        <foreach collection="urlList" item="item" index="index" open="" close="" separator=";">
+            update short_url set client_count= client_count+#{item.clientCount},last_click_time=now() where short_url =
+            #{item.shortUrl}
+        </foreach>
+    </update>
+</mapper>

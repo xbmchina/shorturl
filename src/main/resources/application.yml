@@ -1,0 +1,49 @@
+spring:
+  redis:
+    port: 6379
+    password: xxxxpwd
+    host: 115.159.2.165
+    lettuce:
+      pool:
+        max-active: 8 # ���ӳش���������ʹ�ø�ֵ��ʾû�����ƣ�
+        max-idle: 8 # ���ӳ��еĴ��������
+        min-idle: 0 # ���ӳ��е�С��������
+        max-wait: 1000 # ���ӳش������ȴ�ʱ�䣨ʹ�ø�ֵ��ʾû�����ƣ�
+        shutdown-timeout: 100   # �رճ�ʱʱ��
+
+
+# mybatis
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: cn.xbmchina.shorturl.entity
+
+
+jdbc:
+  dsList:
+    #    # 数据源ds0
+    #    -ds0:
+    - driverClassName: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://115.159.2.165:3306/short_link_01?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true&useAffectedRows=true&autoReconnect=true&autoReconnectForPools=true
+      username: root
+      password: xxxxpwd
+      initialSize: 5
+      minIdle: 1
+      maxActive: 500
+      testWhileIdle: true
+      timeBetweenEvictionRunsMillis: 60000
+      validationQuery: select now()
+
+    #    # 数据源ds1
+    #    -ds1:
+    - driverClassName: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://115.159.2.165:3306/short_link_02?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true&useAffectedRows=true&autoReconnect=true&autoReconnectForPools=true
+      username: root
+      password: xxxxpwd
+      initialSize: 5
+      minIdle: 1
+      maxActive: 500
+      testWhileIdle: true
+      timeBetweenEvictionRunsMillis: 60000
+      validationQuery: select now()
+server:
+  port: 8888
